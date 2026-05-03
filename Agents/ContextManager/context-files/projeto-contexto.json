@@ -1,0 +1,8 @@
+{
+    "projeto":  {
+                    "descricao":  "Sistema para gerenciamento de contexto",
+                    "nome":  "ContextManager",
+                    "id":  "ctx-001",
+                    "versao":  "1.0.0"
+                }
+}

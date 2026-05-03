@@ -1,0 +1,25 @@
+2026/04/28-16:07:18.029 2a20 Reusing MANIFEST C:\Users\André\Desktop\picpac-v2-claude\Agents\Amanda\src\v2.0\sessions\whatsapp-session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/04/28-16:07:18.030 2a20 Recovering log #181
+2026/04/28-16:07:18.061 2a20 Reusing old log C:\Users\André\Desktop\picpac-v2-claude\Agents\Amanda\src\v2.0\sessions\whatsapp-session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000181.log 
+2026/04/28-16:07:24.192 2a20 Level-0 table #188: started
+2026/04/28-16:07:24.221 2a20 Level-0 table #188: 1165341 bytes OK
+2026/04/28-16:07:24.223 2a20 Delete type=0 #181
+2026/04/28-16:07:24.232 2a20 Compacting 1@1 + 3@2 files
+2026/04/28-16:07:24.314 2a20 Generated table #189@1: 83113 keys, 2234190 bytes
+2026/04/28-16:07:24.376 2a20 Generated table #190@1: 56641 keys, 2431740 bytes
+2026/04/28-16:07:24.440 2a20 Generated table #191@1: 55416 keys, 2016207 bytes
+2026/04/28-16:07:24.440 2a20 Compacted 1@1 + 3@2 files => 6682137 bytes
+2026/04/28-16:07:24.441 2a20 compacted to: files[ 0 0 3 0 0 0 0 ]
+2026/04/28-16:07:24.442 2a20 Delete type=2 #183
+2026/04/28-16:07:24.442 2a20 Delete type=2 #184
+2026/04/28-16:07:24.442 2a20 Delete type=2 #185
+2026/04/28-16:07:24.442 2a20 Delete type=2 #188
+2026/04/28-17:02:13.619 2e58 Level-0 table #193: started
+2026/04/28-17:02:13.659 2e58 Level-0 table #193: 1019713 bytes OK
+2026/04/28-17:02:13.661 2e58 Delete type=0 #187
+2026/04/28-17:03:14.682 2e58 Compacting 1@1 + 3@2 files
+2026/04/28-17:03:14.814 2e58 Generated table #194@1: 84511 keys, 2234598 bytes
+2026/04/28-17:03:14.901 2e58 Generated table #195@1: 50742 keys, 2427169 bytes
+2026/04/28-17:03:14.945 2e58 Generated table #196@1: 61738 keys, 2057296 bytes
+2026/04/28-17:03:14.945 2e58 Compacted 1@1 + 3@2 files => 6719063 bytes
+2026/04/28-17:03:14.946 2e58 compacted to: files[ 0 0 3 0 0 0 0 ]

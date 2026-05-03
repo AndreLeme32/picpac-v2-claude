@@ -1,0 +1,19 @@
+{
+  "name": "decisor-agent",
+  "version": "2.0.0",
+  "description": "Decisor Agent - Transforms client data into Bling-ready format",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "axios": "^1.15.2",
+    "dotenv": "^17.4.2",
+    "fastify": "^4.29.1",
+    "fastify-plugin": "^5.1.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

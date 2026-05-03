@@ -1,0 +1,9 @@
+{
+    "agentes":  [
+                    {
+                        "ativo":  true,
+                        "nome":  "Coordenador",
+                        "id":  "agent-001"
+                    }
+                ]
+}

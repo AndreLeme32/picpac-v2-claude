@@ -1,0 +1,20 @@
+2026/04/29-17:24:30.743 5990 Reusing MANIFEST C:\Users\André\Desktop\picpac-v2-claude\Agents\Amanda\src\v2.0\sessions\whatsapp-session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/04/29-17:24:30.744 5990 Recovering log #192
+2026/04/29-17:24:30.756 5990 Reusing old log C:\Users\André\Desktop\picpac-v2-claude\Agents\Amanda\src\v2.0\sessions\whatsapp-session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000192.log 
+2026/04/29-17:24:30.756 5990 Delete type=2 #189
+2026/04/29-17:24:30.757 5990 Delete type=2 #190
+2026/04/29-17:24:30.757 5990 Delete type=2 #191
+2026/04/29-17:24:30.757 5990 Delete type=2 #193
+2026/04/29-17:24:34.803 edc Level-0 table #199: started
+2026/04/29-17:24:34.827 edc Level-0 table #199: 1029918 bytes OK
+2026/04/29-17:24:34.829 edc Delete type=0 #192
+2026/04/29-17:24:35.260 edc Compacting 1@1 + 3@2 files
+2026/04/29-17:24:35.367 edc Generated table #200@1: 83902 keys, 2233384 bytes
+2026/04/29-17:24:35.439 edc Generated table #201@1: 52232 keys, 2429933 bytes
+2026/04/29-17:24:35.494 edc Generated table #202@1: 61883 keys, 2100163 bytes
+2026/04/29-17:24:35.495 edc Compacted 1@1 + 3@2 files => 6763480 bytes
+2026/04/29-17:24:35.496 edc compacted to: files[ 0 0 3 0 0 0 0 ]
+2026/04/29-17:24:35.496 edc Delete type=2 #194
+2026/04/29-17:24:35.497 edc Delete type=2 #195
+2026/04/29-17:24:35.497 edc Delete type=2 #196
+2026/04/29-17:24:35.497 edc Delete type=2 #199

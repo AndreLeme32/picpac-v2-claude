@@ -1,0 +1,31 @@
+{
+  "name": "@picpac/context-manager",
+  "version": "1.0.0",
+  "description": "Engenheiro de Projeto - Agente que analisa e valida arquitetura de projetos",
+  "main": "context-manager-server.js",
+  "scripts": {
+    "start": "node src/v2.0/context-manager-v2.js",
+    "server": "node src/v2.0/context-manager-server.js",
+    "dev": "node src/v2.0/context-manager-v2.js",
+    "test": "echo \"Testes aqui\""
+  },
+  "keywords": [
+    "context-manager",
+    "project-engineer",
+    "ai-agent",
+    "architecture",
+    "openai"
+  ],
+  "author": "Andre (PicPac)",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.15.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "multer": "^2.1.1",
+    "openai": "^4.104.0",
+    "simple-git": "^3.36.0"
+  },
+  "type": "commonjs"
+}

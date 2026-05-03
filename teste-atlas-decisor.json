@@ -1,0 +1,13 @@
+{
+  "nome": "Andre Silva",
+  "documento": "29481110800",
+  "email": "andre@amazonia32.com",
+  "itens": [
+    {
+      "descricao": "Caixa 11x11x40",
+      "quantidade": 100,
+      "valor": 1.77,
+      "preco_unitario": 1.77
+    }
+  ]
+}

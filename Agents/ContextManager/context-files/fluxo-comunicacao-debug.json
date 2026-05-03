@@ -1,0 +1,11 @@
+{
+    "fluxoComunicacao":  [
+                             {
+                                 "passo":  1,
+                                 "status":  "enviado",
+                                 "para":  "Coordenador",
+                                 "de":  "Usuario"
+                             }
+                         ],
+    "debugMode":  true
+}

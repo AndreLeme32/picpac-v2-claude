@@ -1,0 +1,15 @@
+2026/04/28-16:07:16.624 2164 Reusing MANIFEST C:\Users\André\Desktop\picpac-v2-claude\Agents\Amanda\src\v2.0\sessions\whatsapp-session\Default\Local Storage\leveldb/MANIFEST-000001
+2026/04/28-16:07:16.632 2164 Recovering log #55
+2026/04/28-16:07:16.638 2164 Reusing old log C:\Users\André\Desktop\picpac-v2-claude\Agents\Amanda\src\v2.0\sessions\whatsapp-session\Default\Local Storage\leveldb/000055.log 
+2026/04/28-16:25:17.275 24ec Level-0 table #59: started
+2026/04/28-16:25:17.284 24ec Level-0 table #59: 14699 bytes OK
+2026/04/28-16:25:17.287 24ec Delete type=0 #55
+2026/04/28-16:25:17.288 24ec Compacting 4@0 + 1@1 files
+2026/04/28-16:25:17.295 24ec Generated table #60@0: 173 keys, 12287 bytes
+2026/04/28-16:25:17.296 24ec Compacted 4@0 + 1@1 files => 12287 bytes
+2026/04/28-16:25:17.297 24ec compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/04/28-16:25:17.297 24ec Delete type=2 #48
+2026/04/28-16:25:17.297 24ec Delete type=2 #51
+2026/04/28-16:25:17.297 24ec Delete type=2 #53
+2026/04/28-16:25:17.297 24ec Delete type=2 #56
+2026/04/28-16:25:17.297 24ec Delete type=2 #59

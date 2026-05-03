@@ -1,0 +1,49 @@
+{
+  "projectInfo": {
+    "name": "PicPac V2",
+    "created": "2026-04-24",
+    "lastScanned": null,
+    "description": "Sistema de múltiplos agentes para atendimento e formalização de pedidos"
+  },
+  "folderStructure": {
+    "root": "picpac-v2-claude",
+    "agents": ["Amanda", "Atlas", "Decisor", "BlingBot", "ContextManager"],
+    "description": "Estrutura hierárquica de pastas"
+  },
+  "filesAnalyzed": {
+    "amanda.js": {},
+    "calculator.js": {},
+    "atlas.js": {},
+    "decisor.js": {},
+    "blingbot.js": {},
+    "context-manager.js": {},
+    "context-manager-server.js": {}
+  },
+  "dependenciesMap": {
+    "amanda.js": ["openai", "axios", "calculator.js"],
+    "atlas.js": ["amanda.js"],
+    "decisor.js": ["atlas.js", "calculator.js"],
+    "blingbot.js": ["decisor.js"],
+    "context-manager.js": []
+  },
+  "architectureValidation": {
+    "ports": {
+      "3001": "Amanda",
+      "3002": "Atlas",
+      "3004": "Decisor",
+      "3005": "BlingBot",
+      "3006": "ContextManager"
+    },
+    "status": "pending",
+    "issues": [],
+    "lastValidated": null
+  },
+  "criticalFields": {
+    "precoCalculado": "Campo obrigatório enviado por Amanda para Atlas",
+    "numeroDocumento": "Campo obrigatório para buscar contato no Bling",
+    "produto.id": "Campo obrigatório para criar PEDIDO no Bling"
+  },
+  "violations": [],
+  "recommendations": [],
+  "lastUpdated": null
+}
