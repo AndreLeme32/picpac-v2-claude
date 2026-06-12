@@ -1,0 +1,117 @@
+{
+  "clientes": [
+    {
+      "id": "cliente_001",
+      "nome": "João Silva Embalagens",
+      "telefone": "5511999887766",
+      "email": "joao.silva@embalagensjs.com.br",
+      "cnpj": "12.345.678/0001-90",
+      "tipo": "Pessoa Jurídica",
+      "endereco": {
+        "rua": "Rua das Indústrias",
+        "numero": "1500",
+        "complemento": "Galpão 3",
+        "bairro": "Distrito Industrial",
+        "cidade": "São Paulo",
+        "estado": "SP",
+        "cep": "01310-100"
+      },
+      "historico_pedidos": [
+        {
+          "pedido_id": "PED-2024-001",
+          "data": "2024-01-15T10:30:00Z",
+          "tipo_caixa": "Maleta",
+          "dimensoes": {
+            "comprimento": 300,
+            "largura": 200,
+            "altura": 150
+          },
+          "quantidade": 500,
+          "gramatura": "Wave B",
+          "com_impressao": true,
+          "valor_unitario": 3.45,
+          "valor_total": 1725.00,
+          "status": "Entregue"
+        },
+        {
+          "pedido_id": "PED-2024-002",
+          "data": "2024-02-20T14:15:00Z",
+          "tipo_caixa": "Automontável",
+          "dimensoes": {
+            "comprimento": 250,
+            "largura": 180,
+            "altura": 100
+          },
+          "quantidade": 1000,
+          "gramatura": "Wave BC",
+          "com_impressao": false,
+          "valor_unitario": 2.85,
+          "valor_total": 2850.00,
+          "status": "Em produção"
+        }
+      ],
+      "preferencias": {
+        "gramatura_padrao": "Wave B",
+        "tipo_caixa_preferido": "Maleta",
+        "prazo_pagamento": "30 dias",
+        "forma_pagamento": "Boleto"
+      },
+      "observacoes": "Cliente recorrente, sempre solicita amostras antes de grandes pedidos"
+    },
+    {
+      "id": "cliente_002",
+      "nome": "Maria Oliveira - Doceria Artesanal",
+      "telefone": "5521988776655",
+      "email": "maria@doceriaoliveira.com",
+      "cnpj": "98.765.432/0001-10",
+      "tipo": "MEI",
+      "endereco": {
+        "rua": "Avenida dos Confeiteiros",
+        "numero": "789",
+        "complemento": "Loja 2",
+        "bairro": "Centro",
+        "cidade": "Rio de Janeiro",
+        "estado": "RJ",
+        "cep": "20040-020"
+      },
+      "historico_pedidos": [
+        {
+          "pedido_id": "PED-2024-003",
+          "data": "2024-03-01T09:00:00Z",
+          "tipo_caixa": "Automontável",
+          "dimensoes": {
+            "comprimento": 150,
+            "largura": 150,
+            "altura": 80
+          },
+          "quantidade": 200,
+          "gramatura": "Wave B",
+          "com_impressao": true,
+          "valor_unitario": 1.95,
+          "valor_total": 390.00,
+          "status": "Entregue"
+        }
+      ],
+      "preferencias": {
+        "gramatura_padrao": "Wave B",
+        "tipo_caixa_preferido": "Automontável",
+        "prazo_pagamento": "À vista",
+        "forma_pagamento": "PIX"
+      },
+      "observacoes": "Cliente novo, primeira compra foi em março/2024. Interessada em caixas personalizadas para doces"
+    }
+  ],
+  "estatisticas": {
+    "total_clientes": 2,
+    "total_pedidos": 3,
+    "valor_total_vendido": 4965.00,
+    "tipo_caixa_mais_vendido": "Automontável",
+    "gramatura_mais_usada": "Wave B"
+  },
+  "configuracoes_teste": {
+    "ambiente": "desenvolvimento",
+    "usar_precos_fixos": false,
+    "simular_delays": true,
+    "log_detalhado": true
+  }
+}
