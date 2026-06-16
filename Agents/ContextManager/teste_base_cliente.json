@@ -1,0 +1,188 @@
+{
+  "database_clientes": [
+    {
+      "id_unico": "DEMO-001",
+      "empresa": {
+        "nome_legal": "Indústria de Móveis Conforto Total S.A.",
+        "nome_comercial": "Móveis Conforto",
+        "documento": "56.789.012/0001-34",
+        "inscricao_estadual": "222.333.444.555",
+        "tipo_empresa": "Sociedade Anônima",
+        "ano_fundacao": 2008,
+        "numero_funcionarios": 120
+      },
+      "contato": {
+        "telefone_comercial": "(48) 3271-9000",
+        "telefone_alternativo": "(48) 3271-9001",
+        "celular_comercial": "(48) 99666-8888",
+        "whatsapp": "5548996668888",
+        "email_geral": "contato@moveisconforto.com.br",
+        "email_compras": "compras@moveisconforto.com.br",
+        "pessoa_contato": {
+          "nome_completo": "Daniela Ferreira Costa",
+          "cargo": "Gerente de Suprimentos",
+          "telefone_direto": "(48) 3271-9015",
+          "email": "daniela.costa@moveisconforto.com.br"
+        }
+      },
+      "localizacao": {
+        "endereco": "Rodovia BR-101",
+        "numero": "KM 205",
+        "complemento": "Parque Industrial",
+        "bairro": "Distrito Industrial",
+        "cidade": "Florianópolis",
+        "estado": "SC",
+        "cep": "88058-000",
+        "coordenadas": {
+          "latitude": -27.5954,
+          "longitude": -48.5480
+        },
+        "area_entrega": "Doca 3 - Recebimento"
+      },
+      "comercial": {
+        "status_cadastro": "Ativo",
+        "data_primeiro_pedido": "2024-03-15",
+        "categoria_cliente": "Platinum",
+        "potencial_mensal": 50000.00,
+        "desconto_acordado": 10,
+        "tabela_preco": "Especial_Industria"
+      },
+      "pedidos": [
+        {
+          "codigo_pedido": "PED-2024-3001",
+          "data": "2024-11-10",
+          "itens": {
+            "descricao": "Caixa Maleta Extra Grande",
+            "dimensoes": "1200x800x600mm",
+            "tipo": "Maleta",
+            "ondulacao": "Wave BC",
+            "impressao": true,
+            "quantidade": 3000
+          },
+          "valores": {
+            "unitario": 32.50,
+            "total": 97500.00,
+            "desconto_aplicado": 10,
+            "valor_final": 87750.00
+          },
+          "entrega": {
+            "prazo": "30 dias",
+            "status": "Em produção"
+          }
+        }
+      ],
+      "financeiro": {
+        "limite_aprovado": 150000.00,
+        "saldo_disponivel": 62250.00,
+        "condicao_pagamento": "45/60/90 dias",
+        "forma_preferencial": "Transferência Bancária",
+        "banco": "Banco do Brasil",
+        "historico_pagamento": "Excelente"
+      },
+      "observacoes_importantes": "Cliente VIP. Exige certificado de qualidade. Entregas sempre agendadas. Embalagens para móveis pesados."
+    },
+    {
+      "id_unico": "DEMO-002",
+      "empresa": {
+        "nome_legal": "Rafaela Santos Alimentos Naturais ME",
+        "nome_comercial": "Naturalmente Saudável",
+        "documento": "23.456.789/0001-01",
+        "inscricao_estadual": "Isento",
+        "tipo_empresa": "Microempresa",
+        "ano_fundacao": 2021,
+        "numero_funcionarios": 5
+      },
+      "contato": {
+        "telefone_comercial": "(13) 3455-2233",
+        "telefone_alternativo": "",
+        "celular_comercial": "(13) 99555-4433",
+        "whatsapp": "5513995554433",
+        "email_geral": "contato@naturalmentesaudavel.com",
+        "email_compras": "rafaela@naturalmentesaudavel.com",
+        "pessoa_contato": {
+          "nome_completo": "Rafaela Santos",
+          "cargo": "Proprietária",
+          "telefone_direto": "(13) 99555-4433",
+          "email": "rafaela@naturalmentesaudavel.com"
+        }
+      },
+      "localizacao": {
+        "endereco": "Avenida da Praia",
+        "numero": "890",
+        "complemento": "Loja 5",
+        "bairro": "Gonzaga",
+        "cidade": "Santos",
+        "estado": "SP",
+        "cep": "11065-000",
+        "coordenadas": {
+          "latitude": -23.9618,
+          "longitude": -46.3322
+        },
+        "area_entrega": "Recepção da loja"
+      },
+      "comercial": {
+        "status_cadastro": "Ativo",
+        "data_primeiro_pedido": "2024-08-20",
+        "categoria_cliente": "Standard",
+        "potencial_mensal": 2000.00,
+        "desconto_acordado": 0,
+        "tabela_preco": "Padrao_Varejo"
+      },
+      "pedidos": [
+        {
+          "codigo_pedido": "PED-2024-3002",
+          "data": "2024-12-05",
+          "itens": {
+            "descricao": "Caixa Automontável Pequena",
+            "dimensoes": "150x120x100mm",
+            "tipo": "Automontável",
+            "ondulacao": "Wave B",
+            "impressao": true,
+            "quantidade": 400
+          },
+          "valores": {
+            "unitario": 2.25,
+            "total": 900.00,
+            "desconto_aplicado": 0,
+            "valor_final": 900.00
+          },
+          "entrega": {
+            "prazo": "10 dias",
+            "status": "Aguardando produção"
+          }
+        }
+      ],
+      "financeiro": {
+        "limite_aprovado": 5000.00,
+        "saldo_disponivel": 4100.00,
+        "condicao_pagamento": "Antecipado/À vista",
+        "forma_preferencial": "PIX",
+        "banco": "Caixa Econômica",
+        "historico_pagamento": "Novo cliente"
+      },
+      "observacoes_importantes": "Cliente novo com potencial de crescimento. Produtos para alimentos orgânicos. Prefere embalagens ecológicas."
+    }
+  ],
+  "sumario": {
+    "quantidade_clientes": 2,
+    "valor_total_pedidos": 88650.00,
+    "ticket_medio": 44325.00,
+    "clientes_por_estado": {
+      "SC": 1,
+      "SP": 1
+    },
+    "clientes_por_categoria": {
+      "Platinum": 1,
+      "Standard": 1
+    }
+  },
+  "metadata": {
+    "nome_arquivo": "teste_base_cliente.json",
+    "versao": "6.0",
+    "data_criacao": "2024-12-20T20:00:00-03:00",
+    "proxima_revisao": "2025-01-20",
+    "ambiente": "Testes",
+    "responsavel": "PICPAC Context Manager",
+    "finalidade": "Base de dados para validação do fluxo operacional completo"
+  }
+}
