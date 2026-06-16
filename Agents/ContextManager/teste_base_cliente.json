@@ -161,28 +161,135 @@
         "historico_pagamento": "Novo cliente"
       },
       "observacoes_importantes": "Cliente novo com potencial de crescimento. Produtos para alimentos orgânicos. Prefere embalagens ecológicas."
+    },
+    {
+      "id_unico": "DEMO-003",
+      "empresa": {
+        "nome_legal": "Farmácia Popular Centro Oeste LTDA EPP",
+        "nome_comercial": "Rede Farma Popular",
+        "documento": "91.234.567/0001-89",
+        "inscricao_estadual": "777.888.999.000",
+        "tipo_empresa": "Empresa de Pequeno Porte",
+        "ano_fundacao": 2015,
+        "numero_funcionarios": 35
+      },
+      "contato": {
+        "telefone_comercial": "(65) 3642-7500",
+        "telefone_alternativo": "(65) 3642-7501",
+        "celular_comercial": "(65) 99234-5678",
+        "whatsapp": "5565992345678",
+        "email_geral": "contato@farmapopular.com.br",
+        "email_compras": "suprimentos@farmapopular.com.br",
+        "pessoa_contato": {
+          "nome_completo": "Eduardo Lima Pereira",
+          "cargo": "Coordenador de Logística",
+          "telefone_direto": "(65) 3642-7510",
+          "email": "eduardo.pereira@farmapopular.com.br"
+        }
+      },
+      "localizacao": {
+        "endereco": "Avenida do CPA",
+        "numero": "3500",
+        "complemento": "Centro de Distribuição",
+        "bairro": "Centro Político Administrativo",
+        "cidade": "Cuiabá",
+        "estado": "MT",
+        "cep": "78049-000",
+        "coordenadas": {
+          "latitude": -15.5989,
+          "longitude": -56.0949
+        },
+        "area_entrega": "Doca 1 - CD Principal"
+      },
+      "comercial": {
+        "status_cadastro": "Ativo",
+        "data_primeiro_pedido": "2024-05-10",
+        "categoria_cliente": "Gold",
+        "potencial_mensal": 15000.00,
+        "desconto_acordado": 7,
+        "tabela_preco": "Especial_Farmacia"
+      },
+      "pedidos": [
+        {
+          "codigo_pedido": "PED-2024-3003",
+          "data": "2024-11-25",
+          "itens": {
+            "descricao": "Caixa Automontável Média",
+            "dimensoes": "300x200x150mm",
+            "tipo": "Automontável",
+            "ondulacao": "Wave B",
+            "impressao": false,
+            "quantidade": 1500
+          },
+          "valores": {
+            "unitario": 3.85,
+            "total": 5775.00,
+            "desconto_aplicado": 7,
+            "valor_final": 5370.75
+          },
+          "entrega": {
+            "prazo": "15 dias",
+            "status": "Entregue"
+          }
+        },
+        {
+          "codigo_pedido": "PED-2024-3004",
+          "data": "2024-12-15",
+          "itens": {
+            "descricao": "Caixa Maleta Pequena",
+            "dimensoes": "200x150x100mm",
+            "tipo": "Maleta",
+            "ondulacao": "Wave B",
+            "impressao": true,
+            "quantidade": 2000
+          },
+          "valores": {
+            "unitario": 2.90,
+            "total": 5800.00,
+            "desconto_aplicado": 7,
+            "valor_final": 5394.00
+          },
+          "entrega": {
+            "prazo": "20 dias",
+            "status": "Em produção"
+          }
+        }
+      ],
+      "financeiro": {
+        "limite_aprovado": 35000.00,
+        "saldo_disponivel": 24235.25,
+        "condicao_pagamento": "30/45 dias",
+        "forma_preferencial": "Boleto Bancário",
+        "banco": "Bradesco",
+        "historico_pagamento": "Bom"
+      },
+      "observacoes_importantes": "Rede com 8 lojas na região. Pedidos recorrentes mensais. Exige rastreabilidade das entregas. Potencial para fechar contrato anual."
     }
   ],
   "sumario": {
-    "quantidade_clientes": 2,
-    "valor_total_pedidos": 88650.00,
-    "ticket_medio": 44325.00,
+    "quantidade_clientes": 3,
+    "valor_total_pedidos": 99414.75,
+    "ticket_medio": 33138.25,
     "clientes_por_estado": {
       "SC": 1,
-      "SP": 1
+      "SP": 1,
+      "MT": 1
     },
     "clientes_por_categoria": {
       "Platinum": 1,
+      "Gold": 1,
       "Standard": 1
     }
   },
   "metadata": {
     "nome_arquivo": "teste_base_cliente.json",
-    "versao": "6.0",
+    "versao": "7.0",
     "data_criacao": "2024-12-20T20:00:00-03:00",
+    "data_atualizacao": "2024-12-20T20:15:00-03:00",
     "proxima_revisao": "2025-01-20",
     "ambiente": "Testes",
     "responsavel": "PICPAC Context Manager",
-    "finalidade": "Base de dados para validação do fluxo operacional completo"
+    "finalidade": "Base de dados para validação do fluxo operacional completo",
+    "ultima_alteracao": "Adicionado terceiro cliente (Farmácia Popular) com 2 pedidos"
   }
 }
