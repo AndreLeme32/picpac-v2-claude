@@ -1,0 +1,175 @@
+{
+  "clientes": [
+    {
+      "cliente_id": "TST-001-2024",
+      "informacoes_basicas": {
+        "razao_social": "Supermercado Bom Preço LTDA",
+        "nome_fantasia": "Super Bom Preço",
+        "cnpj": "89.012.345/0001-78",
+        "inscricao_estadual": "555.666.777.888",
+        "data_fundacao": "2010-05-15",
+        "website": "www.superbompreco.com.br"
+      },
+      "dados_contato": {
+        "telefone_principal": "(62) 3225-8900",
+        "telefone_secundario": "(62) 3225-8901",
+        "celular": "(62) 99777-3333",
+        "whatsapp": "5562997773333",
+        "email_principal": "compras@superbompreco.com.br",
+        "contato_responsavel": {
+          "nome": "Marcos Antonio Silva",
+          "cargo": "Coordenador de Compras",
+          "email": "marcos.silva@superbompreco.com.br",
+          "ramal": "205"
+        }
+      },
+      "endereco": {
+        "logradouro": "Avenida Comercial",
+        "numero": "1890",
+        "bairro": "Setor Bueno",
+        "cidade": "Goiânia",
+        "estado": "GO",
+        "cep": "74230-000",
+        "complemento": "Esquina com Rua 15",
+        "tipo_estabelecimento": "Matriz"
+      },
+      "perfil_negocio": {
+        "segmento": "Varejo - Supermercado",
+        "numero_funcionarios": 45,
+        "faturamento_anual": "Até R$ 10 milhões",
+        "numero_lojas": 3,
+        "principais_produtos": [
+          "Alimentos",
+          "Bebidas",
+          "Produtos de limpeza",
+          "Higiene pessoal"
+        ]
+      },
+      "historico_relacionamento": {
+        "cliente_desde": "2024-04-10",
+        "status": "Ativo",
+        "classificacao": "Silver",
+        "frequencia_pedidos": "Quinzenal",
+        "pedidos_realizados": [
+          {
+            "numero": "ORD-2024-456",
+            "data": "2024-10-20",
+            "tipo_produto": "Caixa Maleta",
+            "especificacoes": "350x250x200mm",
+            "quantidade": 1200,
+            "valor": 4680.00,
+            "situacao": "Finalizado"
+          },
+          {
+            "numero": "ORD-2024-512",
+            "data": "2024-11-15",
+            "tipo_produto": "Caixa Automontável",
+            "especificacoes": "200x150x120mm",
+            "quantidade": 2000,
+            "valor": 3800.00,
+            "situacao": "Finalizado"
+          }
+        ]
+      },
+      "dados_financeiros": {
+        "limite_credito": 20000.00,
+        "credito_utilizado": 7500.00,
+        "prazo_pagamento": "28 dias",
+        "forma_pagamento": "Boleto",
+        "media_atraso": 0,
+        "score_credito": "A"
+      },
+      "observacoes": "Cliente prefere entregas no período da manhã. Exige nota fiscal eletrônica. Negociar volumes acima de 2000 unidades."
+    },
+    {
+      "cliente_id": "TST-002-2024",
+      "informacoes_basicas": {
+        "razao_social": "Patricia Gomes Cosméticos ME",
+        "nome_fantasia": "Paty Beauty",
+        "cnpj": "12.345.678/0001-90",
+        "inscricao_estadual": "Isento",
+        "data_fundacao": "2022-08-20",
+        "website": "www.patybeauty.com"
+      },
+      "dados_contato": {
+        "telefone_principal": "(71) 3333-4444",
+        "telefone_secundario": "",
+        "celular": "(71) 99888-2222",
+        "whatsapp": "5571998882222",
+        "email_principal": "patricia@patybeauty.com",
+        "contato_responsavel": {
+          "nome": "Patricia Gomes",
+          "cargo": "Proprietária",
+          "email": "patricia@patybeauty.com",
+          "ramal": ""
+        }
+      },
+      "endereco": {
+        "logradouro": "Rua do Comércio",
+        "numero": "567",
+        "bairro": "Barra",
+        "cidade": "Salvador",
+        "estado": "BA",
+        "cep": "40140-000",
+        "complemento": "Shopping Popular, Box 23",
+        "tipo_estabelecimento": "Loja"
+      },
+      "perfil_negocio": {
+        "segmento": "Varejo - Cosméticos",
+        "numero_funcionarios": 3,
+        "faturamento_anual": "Até R$ 360 mil",
+        "numero_lojas": 1,
+        "principais_produtos": [
+          "Maquiagem",
+          "Perfumes",
+          "Cremes",
+          "Produtos capilares"
+        ]
+      },
+      "historico_relacionamento": {
+        "cliente_desde": "2024-07-05",
+        "status": "Ativo",
+        "classificacao": "Bronze",
+        "frequencia_pedidos": "Mensal",
+        "pedidos_realizados": [
+          {
+            "numero": "ORD-2024-601",
+            "data": "2024-11-01",
+            "tipo_produto": "Caixa Automontável",
+            "especificacoes": "100x100x80mm",
+            "quantidade": 500,
+            "valor": 425.00,
+            "situacao": "Finalizado"
+          }
+        ]
+      },
+      "dados_financeiros": {
+        "limite_credito": 3000.00,
+        "credito_utilizado": 425.00,
+        "prazo_pagamento": "À vista",
+        "forma_pagamento": "PIX",
+        "media_atraso": 0,
+        "score_credito": "B"
+      },
+      "observacoes": "Cliente nova com potencial de crescimento. Interessada em caixas personalizadas com logo. Prefere cores em tons pastéis."
+    }
+  ],
+  "informacoes_gerais": {
+    "total_clientes_base": 2,
+    "data_geracao": "2024-12-20T19:45:00-03:00",
+    "proxima_atualizacao": "2024-12-27T19:45:00-03:00",
+    "valor_total_carteira": 12905.00,
+    "classificacao_clientes": {
+      "Silver": 1,
+      "Bronze": 1
+    }
+  },
+  "controle": {
+    "versao": "5.0",
+    "tipo_arquivo": "JSON",
+    "encoding": "UTF-8",
+    "ambiente": "Desenvolvimento",
+    "responsavel": "Sistema PICPAC",
+    "descricao": "Base de clientes fictícios para teste do fluxo Amanda-Atlas-Decisor-BlingBot"
+  }
+}
