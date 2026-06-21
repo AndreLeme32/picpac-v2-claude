@@ -10,9 +10,7 @@ fastify.register(cors, {
     credentials: true
 });
 
-// ============================================
 // IMPORTAR E REGISTRAR ROTAS DA AMANDA
-// ============================================
 const { routes } = require('./amanda-routes');
 fastify.register(routes);
 
@@ -31,7 +29,7 @@ const start = async () => {
     try {
         await fastify.listen({ port: PORT, host: '0.0.0.0' });
         console.log(`Amanda rodando na porta ${PORT}`);
-        console.log(`Rotas registradas: /health, /api/amanda, /webhook, /corrections, /send-proposal`);
+        console.log(`Rotas carregadas: /health, /api/amanda, /webhook, /corrections, /send-proposal`);
     } catch (err) {
         fastify.log.error(err);
         process.exit(1);
