@@ -1,1 +1,41 @@
-﻿require("dotenv").config();const fastify=require("fastify")({logger:true});const axios=require("axios");fastify.get("/status",async(request,reply)=>{reply.send({status:"ok",agent:"Amanda",port:3001})});fastify.post("/processar",async(request,reply)=>{try{const{mensagem}=request.body;if(!mensagem){return reply.status(400).send({error:"Mensagem � obrigat�ria"})}let processada;const openaiKey=process.env.OPENAI_API_KEY;if(openaiKey){try{const openaiResponse=await axios.post("https://api.openai.com/v1/chat/completions",{model:"gpt-3.5-turbo",messages:[{role:"user",content:`Processe esta mensagem para uma proposta comercial: ${mensagem}`}],max_tokens:500},{headers:{"Authorization":`Bearer ${openaiKey}`,"Content-Type":"application/json"},timeout:30000});processada=openaiResponse.data.choices[0].message.content}catch(openaiErr){fastify.log.warn("OpenAI failed, using fallback:",openaiErr.message);processada=`FALLBACK PROCESSADO: ${mensagem.toUpperCase()}`}}else{processada=`FALLBACK PROCESSADO: ${mensagem.toUpperCase()}`}const atlasResponse=await axios.post("http://localhost:3001/validar",{dados:processada},{timeout:10000});reply.send({status:"success",processed:processada,result:atlasResponse.data})}catch(err){fastify.log.error(err);reply.status(500).send({error:"Falha no processamento"})}});fastify.listen({port:3001,host:"0.0.0.0"},(err)=>{if(err){fastify.log.error(err);process.exit(1)}fastify.log.info("Amanda rodando na porta 3001")});
+const fastify = require('fastify')({ logger: true });
+const cors = require('@fastify/cors');
+require('dotenv').config();
+
+const PORT = process.env.PORT || 3001;
+
+// Configurar CORS
+fastify.register(cors, {
+    origin: true,
+    credentials: true
+});
+
+// ============================================
+// IMPORTAR E REGISTRAR ROTAS DA AMANDA
+// ============================================
+const { routes } = require('./amanda-routes');
+fastify.register(routes);
+
+// Rota básica de teste (mantida para compatibilidade)
+fastify.get('/', async (request, reply) => {
+    return { 
+        status: 'ok', 
+        agent: 'Amanda', 
+        version: '1.0',
+        timestamp: new Date().toISOString()
+    };
+});
+
+// Inicialização do servidor
+const start = async () => {
+    try {
+        await fastify.listen({ port: PORT, host: '0.0.0.0' });
+        console.log(`Amanda rodando na porta ${PORT}`);
+        console.log(`Rotas registradas: /health, /api/amanda, /webhook, /corrections, /send-proposal`);
+    } catch (err) {
+        fastify.log.error(err);
+        process.exit(1);
+    }
+};
+
+start();
