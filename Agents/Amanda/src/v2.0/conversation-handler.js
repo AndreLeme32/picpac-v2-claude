@@ -1,116 +1,115 @@
 // ============================================
-// CONVERSATION HANDLER - AMANDA V3
+// CONVERSATION HANDLER - AMANDA V3 MELHORADO
 // ============================================
-// Gerenciador de conversas e máquina de estados
+// Gerenciador de conversas com inteligência de negócio
 // ============================================
 
-// Armazenamento em memória das conversas
 const conversations = new Map();
 
-// Estados possíveis da conversa
 const CONVERSATION_STATES = {
     INITIAL: 'initial',
+    MENU: 'menu',
     AWAITING_TYPE: 'awaiting_type',
     AWAITING_DIMENSIONS: 'awaiting_dimensions',
     AWAITING_QUANTITY: 'awaiting_quantity',
     AWAITING_GRAMATURA: 'awaiting_gramatura',
     AWAITING_PRINTING: 'awaiting_printing',
+    AWAITING_PERSONAL_DATA: 'awaiting_personal_data',
     AWAITING_CONFIRMATION: 'awaiting_confirmation',
     COMPLETE: 'complete'
 };
 
-// Função principal para processar mensagens do cliente
+// Catálogo básico
+const CATALOGO = [
+    '11x11x40cm - R$ 1,77',
+    '30x20x20cm - R$ 3,16',
+    '27x18x9cm - R$ 1,93',
+    '16x11x6cm - R$ 0,74'
+];
+
 async function processCustomerMessage(phoneNumber, message, profileName = null) {
-    // Obter ou criar conversa
     let conversation = conversations.get(phoneNumber);
     
     if (!conversation) {
-        conversation = createNewConversation(phoneNumber, profileName);
+        conversation = {
+            conversationId: `conv_${Date.now()}`,
+            phoneNumber,
+            customerName: profileName,
+            state: CONVERSATION_STATES.INITIAL,
+            orderData: {},
+            customerData: {},
+            messages: [],
+            createdAt: new Date().toISOString(),
+            lastActivity: new Date().toISOString()
+        };
         conversations.set(phoneNumber, conversation);
     }
     
-    // Atualizar timestamp
     conversation.lastActivity = new Date().toISOString();
-    
-    // Processar mensagem baseado no estado atual
     const response = await handleConversationState(conversation, message);
-    
-    // Salvar conversa atualizada
     conversations.set(phoneNumber, conversation);
     
     return {
         message: response,
-        status: conversation.status,
+        status: conversation.state,
         orderData: conversation.orderData
     };
 }
 
-// Criar nova conversa
-function createNewConversation(phoneNumber, profileName) {
-    return {
-        conversationId: `conv_${Date.now()}`,
-        phoneNumber,
-        customerName: profileName,
-        status: CONVERSATION_STATES.INITIAL,
-        orderData: {},
-        messages: [],
-        createdAt: new Date().toISOString(),
-        lastActivity: new Date().toISOString()
-    };
-}
-
-// Gerenciar estados da conversa
 async function handleConversationState(conversation, message) {
     const msgLower = message.toLowerCase().trim();
-    
-    // Adicionar mensagem ao histórico
-    conversation.messages.push({
-        from: 'customer',
-        content: message,
-        timestamp: new Date().toISOString()
-    });
+    conversation.messages.push({ from: 'customer', content: message, timestamp: new Date().toISOString() });
     
     let response = '';
     
-    // Verificar comandos especiais
+    // Comando global de cancelar
     if (msgLower === 'cancelar' || msgLower === 'sair') {
         resetConversation(conversation.phoneNumber);
         return 'Conversa cancelada. Digite "oi" para começar novamente.';
     }
     
-    // Máquina de estados
-    switch (conversation.status) {
+    // Comando de catálogo
+    if (msgLower.includes('catalogo') || msgLower.includes('catálogo')) {
+        response = '📦 CATÁLOGO PRONTA-ENTREGA:\n\n';
+        CATALOGO.forEach((item, i) => {
+            response += `${i+1}. ${item}\n`;
+        });
+        response += '\nPara orçamento personalizado, me informe as medidas desejadas.';
+        return response;
+    }
+    
+    switch (conversation.state) {
         case CONVERSATION_STATES.INITIAL:
-            response = '🏭 Olá! Bem-vindo à PicPac Embalagens!\n\n';
-            response += 'Vou ajudar você com seu orçamento de caixas de papelão.\n\n';
+            response = '🏭 Olá! Bem-vindo à PicPac Embalagens!\n';
+            response += 'Sou a Amanda, sua assistente virtual.\n\n';
+            response += 'Como posso ajudar?\n';
+            response += '• Digite "catálogo" para ver pronta-entrega\n';
+            response += '• Ou me diga o tipo de caixa que precisa\n\n';
             response += '📦 Qual tipo de caixa você precisa?\n';
             response += '1️⃣ Maleta (com abas)\n';
-            response += '2️⃣ Automontável (com travas)\n\n';
-            response += 'Digite 1 ou 2, ou escreva o nome do tipo.';
-            conversation.status = CONVERSATION_STATES.AWAITING_TYPE;
+            response += '2️⃣ Automontável (com travas)';
+            conversation.state = CONVERSATION_STATES.AWAITING_TYPE;
             break;
             
         case CONVERSATION_STATES.AWAITING_TYPE:
             if (msgLower.includes('1') || msgLower.includes('maleta')) {
                 conversation.orderData.tipo = 'Maleta';
-                response = '✅ Caixa *Maleta* selecionada!\n\n';
+                response = '✅ Caixa Maleta selecionada!\n\n';
                 response += '📏 Agora preciso das dimensões em milímetros.\n';
-                response += 'Por favor, informe no formato:\n';
-                response += '*Comprimento x Largura x Altura*\n\n';
+                response += 'Informe: Comprimento x Largura x Altura\n';
                 response += 'Exemplo: 300x200x150';
-                conversation.status = CONVERSATION_STATES.AWAITING_DIMENSIONS;
+                conversation.state = CONVERSATION_STATES.AWAITING_DIMENSIONS;
             } else if (msgLower.includes('2') || msgLower.includes('auto')) {
                 conversation.orderData.tipo = 'Automontável';
-                response = '✅ Caixa *Automontável* selecionada!\n\n';
+                response = '✅ Caixa Automontável selecionada!\n\n';
                 response += '📏 Agora preciso das dimensões em milímetros.\n';
-                response += 'Por favor, informe no formato:\n';
-                response += '*Comprimento x Largura x Altura*\n\n';
+                response += 'Informe: Comprimento x Largura x Altura\n';
                 response += 'Exemplo: 300x200x150';
-                conversation.status = CONVERSATION_STATES.AWAITING_DIMENSIONS;
+                conversation.state = CONVERSATION_STATES.AWAITING_DIMENSIONS;
             } else {
-                response = '❌ Por favor, escolha:\n';
-                response += '1️⃣ para Maleta\n';
-                response += '2️⃣ para Automontável';
+                response = 'Por favor, escolha:\n';
+                response += '1 - Maleta\n';
+                response += '2 - Automontável';
             }
             break;
             
@@ -120,16 +119,13 @@ async function handleConversationState(conversation, message) {
                 conversation.orderData.comprimento = dimensions.comprimento;
                 conversation.orderData.largura = dimensions.largura;
                 conversation.orderData.altura = dimensions.altura;
-                
-                response = `✅ Dimensões registradas:\n`;
-                response += `📦 ${dimensions.comprimento}x${dimensions.largura}x${dimensions.altura}mm\n\n`;
-                response += '🔢 Qual a quantidade de caixas?\n';
-                response += '(Mínimo: 200 unidades)';
-                conversation.status = CONVERSATION_STATES.AWAITING_QUANTITY;
+                response = `✅ Medidas: ${dimensions.comprimento}x${dimensions.largura}x${dimensions.altura}mm\n\n`;
+                response += '🔢 Quantas unidades você precisa?\n';
+                response += '(Pedido mínimo: 200 unidades)';
+                conversation.state = CONVERSATION_STATES.AWAITING_QUANTITY;
             } else {
-                response = '❌ Formato inválido!\n';
-                response += 'Use: Comprimento x Largura x Altura\n';
-                response += 'Exemplo: 300x200x150';
+                response = 'Não consegui entender as medidas.\n';
+                response += 'Use o formato: 300x200x150';
             }
             break;
             
@@ -137,110 +133,110 @@ async function handleConversationState(conversation, message) {
             const qty = parseInt(message.replace(/\D/g, ''));
             if (qty && qty >= 200) {
                 conversation.orderData.quantidade = qty;
-                response = `✅ Quantidade: *${qty} unidades*\n\n`;
+                response = `✅ Quantidade: ${qty} unidades\n\n`;
                 response += '📋 Qual gramatura do papelão?\n';
                 response += '1️⃣ Wave B (mais leve)\n';
-                response += '2️⃣ Wave BC (mais resistente)\n\n';
-                response += 'Digite 1 ou 2';
-                conversation.status = CONVERSATION_STATES.AWAITING_GRAMATURA;
+                response += '2️⃣ Wave BC (mais resistente)';
+                conversation.state = CONVERSATION_STATES.AWAITING_GRAMATURA;
             } else if (qty && qty < 200) {
-                response = '❌ Quantidade mínima: 200 unidades\n';
-                response += 'Por favor, informe uma quantidade maior ou igual a 200.';
+                response = '⚠️ Pedido mínimo: 200 unidades\n';
+                response += 'Por favor, informe uma quantidade maior.';
             } else {
-                response = '❌ Por favor, informe apenas o número.\n';
-                response += 'Exemplo: 500';
+                response = 'Por favor, informe apenas o número.\nExemplo: 500';
             }
             break;
             
         case CONVERSATION_STATES.AWAITING_GRAMATURA:
-            if (msgLower.includes('1') || (msgLower.includes('wave b') && !msgLower.includes('bc'))) {
+            if (msgLower.includes('1') || msgLower.includes('wave b')) {
                 conversation.orderData.gramatura = 'Wave B';
-                response = '✅ Gramatura *Wave B* selecionada!\n\n';
-                response += '🎨 Deseja impressão personalizada?\n';
-                response += '1️⃣ Sim\n';
-                response += '2️⃣ Não';
-                conversation.status = CONVERSATION_STATES.AWAITING_PRINTING;
+                response = '✅ Gramatura Wave B selecionada!\n\n';
             } else if (msgLower.includes('2') || msgLower.includes('bc')) {
                 conversation.orderData.gramatura = 'Wave BC';
-                response = '✅ Gramatura *Wave BC* selecionada!\n\n';
-                response += '🎨 Deseja impressão personalizada?\n';
-                response += '1️⃣ Sim\n';
-                response += '2️⃣ Não';
-                conversation.status = CONVERSATION_STATES.AWAITING_PRINTING;
+                response = '✅ Gramatura Wave BC selecionada!\n\n';
             } else {
-                response = '❌ Por favor, escolha:\n';
-                response += '1️⃣ para Wave B\n';
-                response += '2️⃣ para Wave BC';
+                response = 'Por favor, escolha 1 ou 2';
+                break;
             }
+            response += '🎨 Deseja impressão personalizada?\n';
+            response += 'Digite: Sim ou Não';
+            conversation.state = CONVERSATION_STATES.AWAITING_PRINTING;
             break;
             
         case CONVERSATION_STATES.AWAITING_PRINTING:
-            if (msgLower.includes('1') || msgLower.includes('sim')) {
+            if (msgLower.includes('sim')) {
                 conversation.orderData.comImpressao = true;
-                response = '✅ Com impressão personalizada!\n\n';
-            } else if (msgLower.includes('2') || msgLower.includes('não') || msgLower.includes('nao')) {
+                response = '✅ Com impressão!\n\n';
+            } else {
                 conversation.orderData.comImpressao = false;
                 response = '✅ Sem impressão!\n\n';
-            } else {
-                response = '❌ Por favor, escolha:\n';
-                response += '1️⃣ para Sim\n';
-                response += '2️⃣ para Não';
-                break;
             }
             
-            // Pedido completo - preparar resumo
-            response += '📋 *RESUMO DO PEDIDO:*\n';
-            response += '━━━━━━━━━━━━━━━━━━━\n';
-            response += `📦 Tipo: ${conversation.orderData.tipo}\n`;
-            response += `📏 Medidas: ${conversation.orderData.comprimento}x${conversation.orderData.largura}x${conversation.orderData.altura}mm\n`;
-            response += `🔢 Quantidade: ${conversation.orderData.quantidade} unidades\n`;
-            response += `📋 Gramatura: ${conversation.orderData.gramatura}\n`;
-            response += `🎨 Impressão: ${conversation.orderData.comImpressao ? 'Sim' : 'Não'}\n\n`;
-            response += '⏳ Calculando seu orçamento...';
-            
-            conversation.status = CONVERSATION_STATES.COMPLETE;
+            response += '📝 Para finalizar, preciso dos seus dados:\n';
+            response += 'Informe seu nome, CPF e email\n';
+            response += 'Exemplo: João Silva, 12345678901, joao@email.com';
+            conversation.state = CONVERSATION_STATES.AWAITING_PERSONAL_DATA;
             break;
             
-        case CONVERSATION_STATES.COMPLETE:
-            response = 'Seu pedido já foi enviado para processamento.\n';
-            response += 'Em breve você receberá o orçamento.\n\n';
-            response += 'Para fazer um novo pedido, digite "novo".';
+        case CONVERSATION_STATES.AWAITING_PERSONAL_DATA:
+            // Extrair dados pessoais
+            const nomeMatch = message.match(/([A-Za-zÀ-ú\s]+)/);
+            const cpfMatch = message.replace(/\D/g, '').match(/(\d{11})/);
+            const emailMatch = message.match(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/);
             
-            if (msgLower === 'novo') {
-                resetConversation(conversation.phoneNumber);
-                return await processCustomerMessage(conversation.phoneNumber, 'oi', conversation.customerName);
+            if (nomeMatch) conversation.customerData.nome = nomeMatch[1].trim();
+            if (cpfMatch) conversation.customerData.cpf = cpfMatch[1];
+            if (emailMatch) conversation.customerData.email = emailMatch[1];
+            
+            if (conversation.customerData.nome && conversation.customerData.cpf && conversation.customerData.email) {
+                response = '📋 RESUMO DO PEDIDO:\n';
+                response += '━━━━━━━━━━━━━━━━━━━\n';
+                response += `Cliente: ${conversation.customerData.nome}\n`;
+                response += `CPF: ${conversation.customerData.cpf}\n`;
+                response += `Email: ${conversation.customerData.email}\n\n`;
+                response += `Tipo: ${conversation.orderData.tipo}\n`;
+                response += `Medidas: ${conversation.orderData.comprimento}x${conversation.orderData.largura}x${conversation.orderData.altura}mm\n`;
+                response += `Quantidade: ${conversation.orderData.quantidade}\n`;
+                response += `Gramatura: ${conversation.orderData.gramatura}\n`;
+                response += `Impressão: ${conversation.orderData.comImpressao ? 'Sim' : 'Não'}\n\n`;
+                response += '✅ Digite "confirmar" para enviar o pedido';
+                conversation.state = CONVERSATION_STATES.AWAITING_CONFIRMATION;
+            } else {
+                response = 'Por favor, informe todos os dados:\n';
+                if (!conversation.customerData.nome) response += '❌ Nome\n';
+                if (!conversation.customerData.cpf) response += '❌ CPF (11 dígitos)\n';
+                if (!conversation.customerData.email) response += '❌ Email\n';
             }
             break;
             
         case CONVERSATION_STATES.AWAITING_CONFIRMATION:
-            if (msgLower === 'confirmar') {
-                response = '✅ Pedido confirmado! Em breve entraremos em contato para finalizar.';
-            } else if (msgLower === 'cancelar') {
-                resetConversation(conversation.phoneNumber);
-                response = '❌ Pedido cancelado. Digite "oi" para começar novamente.';
+            if (msgLower.includes('confirm')) {
+                conversation.state = CONVERSATION_STATES.COMPLETE;
+                response = '✅ Pedido enviado com sucesso!\n';
+                response += '📧 Em breve você receberá o orçamento por email.\n\n';
+                response += 'Obrigado por escolher PicPac Embalagens!\n';
+                response += 'Para novo pedido, digite "oi"';
             } else {
-                response = 'Por favor, digite CONFIRMAR para aprovar ou CANCELAR para desistir.';
+                response = 'Digite "confirmar" para enviar o pedido ou "cancelar" para desistir.';
+            }
+            break;
+            
+        case CONVERSATION_STATES.COMPLETE:
+            response = 'Seu pedido já foi enviado.\nDigite "oi" para fazer um novo pedido.';
+            if (msgLower === 'oi') {
+                resetConversation(conversation.phoneNumber);
+                return processCustomerMessage(conversation.phoneNumber, 'oi', conversation.customerName);
             }
             break;
             
         default:
             response = 'Desculpe, não entendi. Digite "oi" para começar.';
-            conversation.status = CONVERSATION_STATES.INITIAL;
     }
     
-    // Adicionar resposta ao histórico
-    conversation.messages.push({
-        from: 'assistant',
-        content: response,
-        timestamp: new Date().toISOString()
-    });
-    
+    conversation.messages.push({ from: 'assistant', content: response, timestamp: new Date().toISOString() });
     return response;
 }
 
-// Parser de dimensões
 function parseDimensions(text) {
-    // Aceitar formatos: 300x200x150, 300 x 200 x 150, 300 200 150
     const patterns = [
         /(\d+)\s*x\s*(\d+)\s*x\s*(\d+)/i,
         /(\d+)\s+(\d+)\s+(\d+)/,
@@ -257,39 +253,18 @@ function parseDimensions(text) {
             };
         }
     }
-    
     return null;
 }
 
-// Obter estado da conversa
 function getConversationState(phoneNumber) {
     return conversations.get(phoneNumber);
 }
 
-// Resetar conversa
 function resetConversation(phoneNumber) {
     conversations.delete(phoneNumber);
     console.log(`[Conversation Handler] Conversa resetada para ${phoneNumber}`);
 }
 
-// Limpar conversas antigas (mais de 24 horas)
-function cleanOldConversations() {
-    const now = Date.now();
-    const dayInMs = 24 * 60 * 60 * 1000;
-    
-    for (const [phoneNumber, conversation] of conversations.entries()) {
-        const lastActivity = new Date(conversation.lastActivity).getTime();
-        if (now - lastActivity > dayInMs) {
-            conversations.delete(phoneNumber);
-            console.log(`[Conversation Handler] Conversa antiga removida: ${phoneNumber}`);
-        }
-    }
-}
-
-// Executar limpeza a cada hora
-setInterval(cleanOldConversations, 60 * 60 * 1000);
-
-// Exportar funções
 module.exports = {
     processCustomerMessage,
     getConversationState,
