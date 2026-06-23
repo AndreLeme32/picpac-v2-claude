@@ -69,7 +69,7 @@ class Amanda {
   }
 
   responderSaudacao() {
-    return 'Olá! Bem-vindo! Posso ajudar com caixas de pronta entrega (digite \"catalogo\") ou sob medida (ex: \"caixa 30x20x10 qtd 2\"). Forneça nome, CPF, email e confirme o pedido.';
+    return 'Olá! Posso ajudar com caixas de pronta entrega (digite \"catalogo\") ou sob medida (ex: \"caixa 30x20x10 qtd 2\"). Forneça nome, CPF, email e confirme o pedido.';
   }
 
   responderCatalogo() {
@@ -86,12 +86,12 @@ class Amanda {
   }
 
   processarPedidoProntaEntrega(mensagem) {
-    const nums = mensagem.match(/\\d+/g);
+    const nums = mensagem.match(/\d+/g);
     let q = 1;
     if (nums && nums.length > 0) {
       q = parseInt(nums[0]);
     }
-    const descLower = mensagem.replace(/\\d+/g, '').toLowerCase().replace(/pronta|entrega/gi, '').trim();
+    const descLower = mensagem.replace(/\d+/g, '').toLowerCase().replace(/pronta|entrega/gi, '').trim();
     const produto = this.catalog.find(p => 
       p.descricao.toLowerCase().includes(descLower) || 
       descLower.includes(p.descricao.toLowerCase())
@@ -113,14 +113,14 @@ class Amanda {
   }
 
   processarPedidoSobMedida(mensagem) {
-    const dimMatch = mensagem.match(/(\\d+)x(\\d+)x(\\d+)/i);
+    const dimMatch = mensagem.match(/(\d+)x(\d+)x(\d+)/i);
     if (!dimMatch) {
       return 'Informe dimensões ex: \"caixa 30x20x10\" ou \"sob medida 40x30x25 qtd 2\".';
     }
     const l = parseInt(dimMatch[1]);
     const a = parseInt(dimMatch[2]);
     const c = parseInt(dimMatch[3]);
-    const qMatch = mensagem.match(/qtd|quantidade[i:]*(\\d+)/i);
+    const qMatch = mensagem.match(/qtd|quantidade[i:]*(\d+)/i);
     const q = qMatch ? parseInt(qMatch[1]) : 1;
     try {
       const preco_unit = this.calculator.calcularPreco(l, a, c);
@@ -150,12 +150,12 @@ class Amanda {
       this.clientData.nome = nomeMatch[1].trim();
       updated.push('nome');
     }
-    const docMatch = mensagem.match(/(?:cpf|documento)[:\s]*(\\d{11})/i);
+    const docMatch = mensagem.match(/(?:cpf|documento)[:\s]*(\d{11})/i);
     if (docMatch) {
       this.clientData.documento = docMatch[1];
       updated.push('documento');
     }
-    const emailMatch = mensagem.match(/email[:\s]*([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})/i);
+    const emailMatch = mensagem.match(/email[:\s]*([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/i);
     if (emailMatch) {
       this.clientData.email = emailMatch[1].toLowerCase();
       updated.push('email');
@@ -169,7 +169,7 @@ class Amanda {
 
   async formalizarPedido() {
     if (!this.clientData.nome?.trim()) return 'Falta nome.';
-    if (!this.clientData.documento || !/\\d{11}/.test(this.clientData.documento)) return 'Falta documento válido (11 dígitos).';
+    if (!this.clientData.documento || !/\d{11}/.test(this.clientData.documento)) return 'Falta documento válido (11 dígitos).';
     if (!this.clientData.email?.includes('@')) return 'Falta email válido.';
     if (!this.clientData.itens || this.clientData.itens.length === 0) return 'Nenhum item no pedido. Adicione itens primeiro.';
 
@@ -224,14 +224,11 @@ class Amanda {
       })),
       total: this.clientData.total
     };
-    const payloadStr = JSON.stringify(payload, null, 2);
-    logger.info(`Enviando payload COMPLETO para Atlas:\n${payloadStr}`);
+    logger.info(`Enviando payload para Atlas:\n${JSON.stringify(payload, null, 2)}`);
 
-    const url = `https://api.atlas.example.com/pedidos`;  // Substitua pela URL real
+    const url = process.env.ATLAS_URL ? `${process.env.ATLAS_URL}/api/v1/orders/validate` : 'http://localhost:3002/api/v1/orders/validate';
     const response = await axios.post(url, payload, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      headers: { 'Content-Type': 'application/json' }
     });
     logger.info('Resposta Atlas:', response.data);
     return response.data;
