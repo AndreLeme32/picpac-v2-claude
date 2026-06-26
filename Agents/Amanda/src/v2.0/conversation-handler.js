@@ -3,36 +3,20 @@
 // Engine: Amanda-fixed.js (prompt completo PicPac)
 // ============================================
 
-const amandaFixed = require('./Amanda-fixed');
-
-// Log para debugar o que Amanda-fixed exporta
-console.log('[Conversation Handler] Amanda-fixed exports:', Object.keys(amandaFixed));
+// Amanda-fixed usa maps internos por phoneNumber
+// Precisamos chamar as funções diretamente do arquivo
+const { processarMensagem, getMemory, getClientData } = require('./Amanda-fixed');
 
 const sessions = new Map();
 
 async function processCustomerMessage(phoneNumber, message, profileName = null) {
     try {
-        // Tentar diferentes nomes de função que podem existir no Amanda-fixed
-        let response;
-        
-        if (typeof amandaFixed.processarMensagem === 'function') {
-            response = await amandaFixed.processarMensagem(phoneNumber, message);
-        } else if (typeof amandaFixed.handleMessage === 'function') {
-            response = await amandaFixed.handleMessage(phoneNumber, message);
-        } else if (typeof amandaFixed.process === 'function') {
-            response = await amandaFixed.process(phoneNumber, message);
-        } else if (typeof amandaFixed.responder === 'function') {
-            response = await amandaFixed.responder(phoneNumber, message);
-        } else {
-            // Log todas as funções disponíveis para debug
-            console.error('[Conversation Handler] Funções disponíveis:', Object.keys(amandaFixed));
-            throw new Error('Nenhuma função de processamento encontrada no Amanda-fixed');
-        }
+        const response = await processarMensagem(phoneNumber, message);
 
         return {
             message: response,
             status: 'active',
-            orderData: {}
+            orderData: getClientData ? getClientData(phoneNumber) : {}
         };
     } catch (error) {
         console.error(`[Conversation Handler] Erro ao processar mensagem:`, error.message);
