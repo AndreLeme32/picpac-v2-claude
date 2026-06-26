@@ -5,19 +5,37 @@
 
 const amandaFixed = require('./Amanda-fixed');
 
+// Log para debugar o que Amanda-fixed exporta
+console.log('[Conversation Handler] Amanda-fixed exports:', Object.keys(amandaFixed));
+
 const sessions = new Map();
 
 async function processCustomerMessage(phoneNumber, message, profileName = null) {
     try {
-        const response = await amandaFixed.processarMensagem(phoneNumber, message);
+        // Tentar diferentes nomes de função que podem existir no Amanda-fixed
+        let response;
+        
+        if (typeof amandaFixed.processarMensagem === 'function') {
+            response = await amandaFixed.processarMensagem(phoneNumber, message);
+        } else if (typeof amandaFixed.handleMessage === 'function') {
+            response = await amandaFixed.handleMessage(phoneNumber, message);
+        } else if (typeof amandaFixed.process === 'function') {
+            response = await amandaFixed.process(phoneNumber, message);
+        } else if (typeof amandaFixed.responder === 'function') {
+            response = await amandaFixed.responder(phoneNumber, message);
+        } else {
+            // Log todas as funções disponíveis para debug
+            console.error('[Conversation Handler] Funções disponíveis:', Object.keys(amandaFixed));
+            throw new Error('Nenhuma função de processamento encontrada no Amanda-fixed');
+        }
 
         return {
             message: response,
             status: 'active',
-            orderData: amandaFixed.getClientData ? amandaFixed.getClientData(phoneNumber) : {}
+            orderData: {}
         };
     } catch (error) {
-        console.error(`[Conversation Handler] Erro ao processar mensagem:`, error);
+        console.error(`[Conversation Handler] Erro ao processar mensagem:`, error.message);
         return {
             message: 'Desculpe, ocorreu um erro. Tente novamente.',
             status: 'error',
